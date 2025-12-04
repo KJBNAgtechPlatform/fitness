@@ -193,40 +193,60 @@ jobs:
           total_minutes = sum(s["minutes"] for s in stats.values())
           total_workouts = sum(s["workout_count"] for s in stats.values())
           
-          # Set outputs
-          print(f"::set-output name=workout-count::{len(workouts)}")
-          print(f"::set-output name=updated-users::{len(stats)}")
-          print(f"::set-output name=total-minutes::{total_minutes}")
-          
-          if top_performer:
-              print(f"::set-output name=top-performer::{top_performer[0]}")
-              print(f"::set-output name=top-minutes::{top_performer[1]['minutes']}")
+          # Set outputs using GITHUB_OUTPUT (new method)
+          github_output = os.getenv('GITHUB_OUTPUT')
+          if github_output:
+              with open(github_output, 'a') as f:
+                  f.write(f"workout-count={len(workouts)}\n")
+                  f.write(f"updated-users={len(stats)}\n")
+                  f.write(f"total-minutes={total_minutes}\n")
+                  if top_performer:
+                      f.write(f"top-performer={top_performer[0]}\n")
+                      f.write(f"top-minutes={top_performer[1]['minutes']}\n")
 
-          # FIXED: Properly escaped quotes in f-string
           # Write README
           last_updated = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
           
-          readme = f"""# 🏃‍♂️ Code & Commit Fitness Ledger
+          readme_content = f"""# 🏃‍♂️ Code & Commit Fitness Ledger
 
-**Last updated**: {last_updated}
+                              **Last updated**: {last_updated}
 
-**Total workouts**: {total_workouts}  
-**Total minutes**: {total_minutes}  
-**Active participants**: {len(stats)}
+                              **Total workouts**: {total_workouts}  
+                              **Total minutes**: {total_minutes}  
+                              **Active participants**: {len(stats)}
 
-## Leaderboard
+                              ## Leaderboard
 
-{table}
+                              {table}
 
-{badge_section}---
-### How to Participate
+                              {badge_section}---
+                              ### How to Participate
 
-1. Create a new markdown file in the appropriate folder: `YYYY-MM-DD-yourhandle.md`
-2. Add front-matter with your workout details:
-```yaml
----
-author: yourhandle
-duration: 30  # minutes
-activity: running  # running, cycling, yoga, gym, etc.
-date: YYYY-MM-DD  # optional, defaults to filename
----
+                              1. Create a new markdown file in the appropriate folder: `YYYY-MM-DD-yourhandle.md`
+                              2. Add front-matter with your workout details:
+                              ```yaml
+                              ---
+                              author: yourhandle
+                              duration: 30  # minutes
+                              activity: running  # running, cycling, yoga, gym, etc.
+                              date: YYYY-MM-DD  # optional, defaults to filename
+                              ---
+                              ```
+                              3. Add optional notes about your workout in the body of the markdown file
+                              4. Submit a pull request to main
+
+                              _Powered by GitHub Actions_ ⚡
+                              """
+
+          # Write the README file
+          with open(leaderboard_path, 'w', encoding='utf-8') as f:
+              f.write(readme_content)
+          
+          print(f"✅ README updated with {total_workouts} workouts from {len(stats)} participants")
+
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update fitness leaderboard [skip ci]" && git push)
