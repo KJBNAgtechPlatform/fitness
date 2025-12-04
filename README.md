@@ -4,6 +4,7 @@ Each engineer opens an MR/PR that contains one file per workout:
 
 Filename: 2025-11-30-firstname.md
 Sample content:
+
 ......
 
 date: 2025-12-04
