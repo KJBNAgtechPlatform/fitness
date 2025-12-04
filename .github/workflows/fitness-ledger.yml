@@ -3,7 +3,7 @@ name: Fitness Ledger
 on:
   pull_request:
     types: [closed]
-    branches: [main]
+    branches: [progress]
 
 jobs:
   update-board:
@@ -233,7 +233,7 @@ jobs:
                               ---
                               ```
                               3. Add optional notes about your workout in the body of the markdown file
-                              4. Submit a pull request to main
+                              4. Submit a pull request to progress
 
                               _Powered by GitHub Actions_ ⚡
                               """
