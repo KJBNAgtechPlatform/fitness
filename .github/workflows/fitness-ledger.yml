@@ -94,7 +94,8 @@ activity: run
 ---
 ```"""
           with open(leaderboard_path, "w") as f:
-              f.readme.write(readme)
+              f.write(readme)
+              # f.readme.write(readme)
 
       - name: Commit & push updated README
         run: |
