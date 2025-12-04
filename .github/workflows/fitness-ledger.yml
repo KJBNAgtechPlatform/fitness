@@ -1,0 +1,113 @@
+name: Fitness Ledger
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  update-board:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install pyyaml emoji
+
+      - name: Parse workout files & rebuild leaderboard
+        shell: python
+        run: |
+          import os, glob, yaml, datetime, emoji, json, pathlib
+
+          # --- config ---
+          workout_glob = "**/20*.md"
+          leaderboard_path = "README.md"
+          slack_webhook = os.getenv("SLACK_WEBHOOK")   # optional
+          # --------------
+
+          def parse_one(path):
+              with open(path) as f:
+                  front_matter, _ = f.read().split("---", 2)[1:]
+              data = yaml.safe_load(front_matter)
+              data["file"] = path
+              return data
+
+          workouts = [parse_one(f) for f in glob.glob(workout_glob, recursive=True)]
+          # accumulate stats
+          stats = {}
+          for w in workouts:
+              who = w.get("author", pathlib.Path(w["file"]).parts[0])
+              dur = int(w.get("duration", 0))
+              stats.setdefault(who, {"minutes": 0, "streak": 0, "activities": set()})
+              stats[who]["minutes"] += dur
+              stats[who]["activities"].add(w.get("activity", "workout"))
+
+          # build markdown table
+          header = "| Author | Total Minutes | Activities | Streak 🔥 |\n|--------|---------------|------------|----------|"
+          rows = []
+          for who, s in sorted(stats.items(), key=lambda kv: kv[1]["minutes"], reverse=True):
+              acts = ", ".join(sorted(s["activities"]))
+              rows.append(f"| {who} | {s['minutes']} | {acts} | {s['streak']} |")
+          table = "\n".join([header] + rows)
+
+          # emoji badges
+          badges = []
+          for who, s in stats.items():
+              if s["minutes"] >= 500:
+                  badges.append(f"{who} {emoji.emojize(':rocket:')} 500-min club")
+              if s["streak"] >= 5:
+                  badges.append(f"{who} {emoji.emojize(':fire:')} 5-day streak")
+
+          badge_section = "### Badges\n" + "\n".join(f"- {b}" for b in badges) if badges else ""
+
+          # write README
+          readme = f"""# 🏃‍♂️ Code & Commit Fitness Ledger
+
+Last updated: {datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")}
+
+{table}
+
+{badge_section}
+
+---
+
+Add your workout via a merged PR: create `YYYY-MM-DD-yourhandle.md` with front-matter:
+
+```yaml
+---
+author:  Admin
+duration: 30
+activity: run
+---
+```"""
+          with open(leaderboard_path, "w") as f:
+              f.readme.write(readme)
+
+      - name: Commit & push updated README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || (git commit -m "chore: update fitness leaderboard" && git push)
+
+      - name: (Optional) Slack summary
+        if: env.SLACK_WEBHOOK != ''
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text":"🚀 Fitness ledger updated—check the README for the latest leaderboard!"}' \
+          "$SLACK_WEBHOOK"
