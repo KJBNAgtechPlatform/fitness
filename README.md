@@ -1,20 +1,24 @@
 # 🏃‍♂️ Code & Commit Fitness Ledger
 
-                    **Last updated**: 2025-12-05 13:33 UTC
+                    **Last updated**: 2025-12-05 13:36 UTC
 
                     **Total workouts**: 3  
-                    **Total minutes**: 30  
+                    **Total minutes**: 1650  
                     **Active participants**: 3
 
                     ## Leaderboard
 
                     | Author | Total Minutes | Activities | Workouts | Streak 🔥 |
 |--------|---------------|------------|----------|-----------|
+| srijan | 1440 | Existing, | 1 | – |
 | sadham | 180 | Gym, Badminton | 1 | – |
 | bala | 30 | Running | 1 | – |
-| srijan | -180 | Eating Shawarma + Fries + Al Faham, | 1 | – |
 
-                    ---
+                    ### 🏆 Badges
+- srijan 🚀 500-min club
+- srijan 🏆 1000-min elite
+
+---
                     ### How to Participate
 
                     1. Create a new markdown file in the appropriate folder: `YYYY-MM-DD-yourhandle.md`
