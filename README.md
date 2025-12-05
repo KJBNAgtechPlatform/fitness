@@ -1,16 +1,16 @@
 # 🏃‍♂️ Code & Commit Fitness Ledger
 
-                    **Last updated**: 2025-12-05 12:25 UTC
+                    **Last updated**: 2025-12-05 12:36 UTC
 
                     **Total workouts**: 2  
-                    **Total minutes**: 120  
+                    **Total minutes**: 210  
                     **Active participants**: 2
 
                     ## Leaderboard
 
                     | Author | Total Minutes | Activities | Workouts | Streak 🔥 |
 |--------|---------------|------------|----------|-----------|
-| sadham | 90 | Gym | 1 | – |
+| sadham | 180 | Gym, Badminton | 1 | – |
 | bala | 30 | Running | 1 | – |
 
                     ---
