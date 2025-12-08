@@ -1,10 +1,10 @@
 # 🏃‍♂️ Code & Commit Fitness Ledger
 
-                    **Last updated**: 2025-12-05 13:36 UTC
+                    **Last updated**: 2025-12-08 05:04 UTC
 
-                    **Total workouts**: 3  
-                    **Total minutes**: 1650  
-                    **Active participants**: 3
+                    **Total workouts**: 4  
+                    **Total minutes**: 1651  
+                    **Active participants**: 4
 
                     ## Leaderboard
 
@@ -13,6 +13,7 @@
 | srijan | 1440 | Existing, | 1 | – |
 | sadham | 180 | Gym, Badminton | 1 | – |
 | bala | 30 | Running | 1 | – |
+| dileep | 1 | Walking | 1 | – |
 
                     ### 🏆 Badges
 - srijan 🚀 500-min club
