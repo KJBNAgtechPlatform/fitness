@@ -1,10 +1,10 @@
 # 🏃‍♂️ Code & Commit Fitness Ledger
 
-                    **Last updated**: 2025-12-15 05:11 UTC
+                    **Last updated**: 2025-12-17 05:11 UTC
 
-                    **Total workouts**: 10  
-                    **Total minutes**: 2042  
-                    **Active participants**: 5
+                    **Total workouts**: 11  
+                    **Total minutes**: 2087  
+                    **Active participants**: 6
 
                     ## Leaderboard
 
@@ -14,6 +14,7 @@
 | Roja | 270 | Strength Training + Cardio | 3 | – |
 | sadham | 180 | Gym, Badminton | 1 | – |
 | dileep | 122 | Football, Walking | 4 | – |
+| Ayush M | 45 | Gym | 1 | – |
 | bala | 30 | Running | 1 | – |
 
                     ### 🏆 Badges
