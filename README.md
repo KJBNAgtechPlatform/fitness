@@ -1,23 +1,24 @@
 # 🏃‍♂️ Code & Commit Fitness Ledger
 
-                    **Last updated**: 2026-01-15 04:48 UTC
+                    **Last updated**: 2026-02-02 07:04 UTC
 
-                    **Total workouts**: 20  
-                    **Total minutes**: 4684  
+                    **Total workouts**: 24  
+                    **Total minutes**: 5220  
                     **Active participants**: 6
 
                     ## Leaderboard
 
                     | Author | Total Minutes | Activities | Workouts | Streak 🔥 |
 |--------|---------------|------------|----------|-----------|
-| sadham | 2540 | Gym, Badminton | 4 | 1 day |
+| sadham | 2540 | Gym, Badminton | 4 | – |
 | srijan | 1440 | Existing, | 1 | – |
+| dileep | 660 | Badminton, Football, Walking | 9 | – |
 | Roja | 460 | Cardio, Hiit, Pilates, Strength Training + Cardio | 7 | – |
-| dileep | 124 | Football, Walking | 5 | – |
 | Ayush M | 90 | Gym | 2 | – |
 | bala | 30 | Running | 1 | – |
 
                     ### 🏆 Badges
+- dileep 🚀 500-min club
 - sadham 🚀 500-min club
 - sadham 🏆 1000-min elite
 - srijan 🚀 500-min club
